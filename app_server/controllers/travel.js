@@ -25,7 +25,7 @@ const travel = async function (req, res, next) {
                 }
             }
             // console.log(json);
-            res.render('travel', {title: 'Travlr Getaways', trips: json});
+            res.render('travel', { title: 'Travlr Getaways', trips: json, message });
         })
         .catch((err) => res.status(500).send(err.message));
 };
