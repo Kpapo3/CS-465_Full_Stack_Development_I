@@ -24,31 +24,33 @@ export class EditTrip implements OnInit {
     private router: Router,
     private tripData: TripData
   ) {}
-  
+    
   ngOnInit() : void{
     // Retrieve stashed trip ID
     let tripCode = localStorage.getItem("tripCode");
     if (!tripCode) {
       alert("Something wrong, couldn't find where I stashed tripCode!");
-        this.router.navigate(['']);
-        return;
-      }
+      this.router.navigate(['']);
+      return;
+    }
 
-      console.log('EditTrip::ngOnInit');
-      console.log('tripcode:' + tripCode);
+    console.log('EditTrip::ngOnInit');
+    console.log('tripcode:' + tripCode);
 
-      this.editForm = this.formBuilder.group({
-        _id: [],
-        code: [tripCode, Validators.required],
-        name: ['', Validators.required],
-        length: ['', Validators.required],
-        start: ['', Validators.required],
-        resort: ['', Validators.required],
-        perPerson: ['', Validators.required],
-        image: ['', Validators.required],
-        description: ['', Validators.required]
-      })
-      this.tripData.getTrip(tripCode).subscribe({
+    this.editForm = this.formBuilder.group({
+      _id: [],
+      code: [tripCode, Validators.required],
+      name: ['', Validators.required],
+      length: ['', Validators.required],
+      start: ['', Validators.required],
+      resort: ['', Validators.required],
+      perPerson: ['', Validators.required],
+      image: ['', Validators.required],
+      description: ['', Validators.required]
+    })
+
+    this.tripData.getTrip(tripCode)
+      .subscribe({
         next: (value: any) => {
           this.trip = value;
           // Populate our record into the form

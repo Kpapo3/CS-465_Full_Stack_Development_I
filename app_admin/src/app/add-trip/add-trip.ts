@@ -21,7 +21,7 @@ export class AddTrip implements OnInit {
     private formBuilder: FormBuilder,
     private router: Router,
     private tripService: TripData
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.addForm = this.formBuilder.group({
