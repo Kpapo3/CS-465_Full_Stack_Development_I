@@ -9,30 +9,27 @@ import { Authentication } from '../services/authentication';
   standalone: true,
   imports: [CommonModule],
   templateUrl: './trip-card.html',
-  styleUrls: ['./trip-card.css']
+  styleUrl: './trip-card.css'
 })
 
 export class TripCard implements OnInit {
 
-  @Input('trip') trip: any;
+  @Input('trip') trip!: Trip;
   
   constructor(
     private router: Router,
     private authenticationService: Authentication
   ) {}
 
-  public isLoggedIn() {
-    return this.authenticationService.isLoggedIn();
-  }
-
-  ngOnInit(): void {
-
-  }
+  ngOnInit(): void { }
 
   public editTrip(trip: Trip) {
     localStorage.removeItem('tripCode');
     localStorage.setItem('tripCode', trip.code);
     this.router.navigate(['edit-trip']);
   }
-  
+
+  public isLoggedIn() {
+    return this.authenticationService.isLoggedIn();
+  } 
 }

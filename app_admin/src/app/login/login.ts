@@ -48,18 +48,18 @@ export class Login implements OnInit {
       email: this.credentials.email
     } as User;
 
-    // console.log('Login::doLogin');
+    console.log('Login::doLogin');
     // console.log(this.credentials);
     this.authenticationService.login(newUser,
       this.credentials.password);
 
     if(this.authenticationService.isLoggedIn()) {
-      // console.log('Router::Direct');
+      console.log('Router::Direct');
       this.router.navigate(['']);
     } else {
       var timer = setTimeout(() => {
       if(this.authenticationService.isLoggedIn()) {
-        // console.log('Router::Pause');
+        console.log('Router::Pause');
         this.router.navigate(['']);
       }}, 3000);
     }

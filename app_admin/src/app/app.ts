@@ -8,8 +8,9 @@ import { Navbar } from './navbar/navbar';
   standalone: true,
   imports: [CommonModule, RouterOutlet, Navbar],
   templateUrl: './app.html',
-  styleUrls: ['./app.css']
+  styleUrl: './app.css'
 })
+
 export class App {
   title = 'Travlr Getaways Admin!';
 }

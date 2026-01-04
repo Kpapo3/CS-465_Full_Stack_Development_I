@@ -8,7 +8,7 @@ import { Authentication } from '../services/authentication';
 export class JwtInterceptor implements HttpInterceptor {
   constructor(
     private authenticationService: Authentication
-  ) { }
+  ) {}
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     var isAuthAPI: boolean;
@@ -27,7 +27,7 @@ export class JwtInterceptor implements HttpInterceptor {
       // console.log(token);
       const authReq = request.clone({
         setHeaders: {
-          Authorization: 'Bearer ${token}'
+          Authorization: `Bearer ${token}`
         }
       });
       return next.handle(authReq);
