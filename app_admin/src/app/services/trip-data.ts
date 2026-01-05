@@ -1,5 +1,5 @@
 import { Inject, Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { User } from '../models/user';
 import { AuthResponse } from '../models/auth-response';
@@ -13,7 +13,7 @@ export class TripData {
   constructor(
     private http: HttpClient,
     @Inject(BROWSER_STORAGE) private storage: Storage
-  ) { }
+  ) {}
 
   baseUrl = 'http://localhost:3000/api';
 
@@ -30,9 +30,9 @@ export class TripData {
   }
 
   // Method to retrieve a single trip by tripCode
-  getTrip(tripCode: string) : Observable<Trip[]> {
+  getTrip(tripCode: string) : Observable<Trip> {
     // console.log('Inside TripData::addTrips');
-    return this.http.get<Trip[]>(`${this.baseUrl}/trips/${tripCode}`);
+    return this.http.get<Trip>(`${this.baseUrl}/trips/${tripCode}`);
   }
 
   // Method to update an existing trip

@@ -10,7 +10,7 @@ import { User } from '../models/user';
   selector: 'app-login',
   imports: [CommonModule, FormsModule],
   templateUrl: './login.html',
-  styleUrl: './login.css',
+  styleUrls: ['./login.css'],
 })
 export class Login implements OnInit {
   public formError: string = '';
@@ -35,7 +35,7 @@ export class Login implements OnInit {
     if (!this.credentials.email || !this.credentials.password || 
       !this.credentials.name) {
         this.formError = 'All fields are required, please try again.';
-        this.router.navigateByUrl('#'); // Return to the login page
+        this.router.navigateByUrl('#');
     }
     else {
       this.doLogin();
@@ -54,15 +54,15 @@ export class Login implements OnInit {
       this.credentials.password);
 
     if(this.authenticationService.isLoggedIn()) {
-      console.log('Router::Direct');
-      this.router.navigate(['']);
+        console.log('Router::Direct');
+        this.router.navigate(['']);
     } else {
       var timer = setTimeout(() => {
-      if(this.authenticationService.isLoggedIn()) {
-        console.log('Router::Pause');
-        this.router.navigate(['']);
-      }}, 3000);
+        if(this.authenticationService.isLoggedIn()) {
+          console.log('Router::Pause');
+          this.router.navigate(['']);
+        }
+      },3000);
     }
   }
-
 }

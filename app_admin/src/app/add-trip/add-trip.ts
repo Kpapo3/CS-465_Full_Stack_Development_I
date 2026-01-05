@@ -3,14 +3,13 @@ import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from "@angular/forms"
 import { Router } from '@angular/router';
 import { TripData } from '../services/trip-data';
-import { Trip } from '../models/trip';
 
 @Component({
   selector: 'app-add-trip',
   standalone: true,
   imports: [CommonModule, ReactiveFormsModule],
   templateUrl: './add-trip.html',
-  styleUrl: './add-trip.css',
+  styleUrls: ['./add-trip.css'],
 })
 
 export class AddTrip implements OnInit {

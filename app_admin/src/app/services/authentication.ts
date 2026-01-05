@@ -11,8 +11,8 @@ import { TripData } from './trip-data';
 export class Authentication {
   constructor(
     @Inject(BROWSER_STORAGE) private storage: Storage,
-    private tripData: TripData
-  ) { }
+    private tripDataService: TripData
+  ) {}
 
   // Variable to handle Authentication Responses
   authResp: AuthResponse = new AuthResponse();
@@ -47,7 +47,7 @@ export class Authentication {
   public isLoggedIn(): boolean {
     const token: string = this.getToken();
     if (token) {
-      const payload = JSON.parse(atob(token.split('.') [1]));
+      const payload = JSON.parse(atob(token.split('.')[1]));
       return payload.exp > (Date.now() / 1000);
     }
     else {
@@ -64,13 +64,13 @@ export class Authentication {
     return { email, name } as User;
   }
 
-  // Login method that leverages the login method in tripDataService
+  // Login method that leverages the login method in tripData
   // Because that method returns an observable, we subscribe to the
   // result and only process when the Observable condition is satisfied
   // Uncomment the two console.log messages for additional debugging
   // information.
-  public login(user: User, passwd: string) : void {
-    this.tripData.login(user,passwd)
+  public login(user: User, passwd: string): void {
+    this.tripDataService.login(user, passwd)
       .subscribe({
         next: (value: any) => {
           if(value) {
@@ -81,8 +81,8 @@ export class Authentication {
         },
         error: (error: any) => {
           console.log('Error: ' + error);
-        }
-      })
+        },
+    });
   }
   // Register method that leverages the register method in tripData
   // Because that method returns an observable, we subscribe to the
@@ -92,7 +92,7 @@ export class Authentication {
   // login method because the behavior of the API logs a new user in
   // immediately upon registration
   public register(user: User, passwd: string) : void {
-    this.tripData.register(user,passwd)
+    this.tripDataService.register(user,passwd)
       .subscribe({
         next: (value: any) => {
           if(value) {
@@ -103,10 +103,9 @@ export class Authentication {
         },
         error: (error: any) => {
           console.log('Error: ' + error);
-        }
-      })
+        },
+    });
   }
-
 
 }
 

@@ -81,7 +81,7 @@ const tripsAddTrip = async(req, res) => {
 
 };
 
-// PUT: /trips/:tripCode - add new trip
+// PUT: /trips/:tripCode - updates a trip
 // Regardless of outcome, response must include HTML status code
 // and JSON message to requesting client
 const tripsUpdateTrip = async(req, res) => {
@@ -91,7 +91,7 @@ const tripsUpdateTrip = async(req, res) => {
 
     const q = await Model
         .findOneAndUpdate(
-            { 'code' : req.params.tripCode },
+            {'code' : req.params.tripCode},
             {
                 code: req.body.code,
                 name: req.body.name,
@@ -119,9 +119,34 @@ const tripsUpdateTrip = async(req, res) => {
         }
 };
 
+// DELETE: /trips/:tripCode - deletes a single trip
+const tripsDeleteTrip = async (req, res) => {
+    try {
+        const deleted = await Model
+            .findOneAndDelete(
+                { 'code' : req.params.tripCode}
+        )
+        .exec();
+
+        if (!deleted) {
+            return res
+                .status(404)
+                .json({ message: 'Trip not found'});
+        }
+        return res
+                .status(204)
+                .send(); // No Content found
+        } catch(err) {
+            return res
+                .status(500)
+                .json({ message: 'Delete failed', error: err.message });
+    }
+};
+
 module.exports = {
     tripsList,
     tripsFindByCode,
     tripsAddTrip,
-    tripsUpdateTrip
+    tripsUpdateTrip,
+    tripsDeleteTrip
 };

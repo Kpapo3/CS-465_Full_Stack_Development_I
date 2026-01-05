@@ -12,17 +12,17 @@ import { Router } from '@angular/router';
   standalone: true,
   imports: [CommonModule, TripCard],
   templateUrl: './trip-listing.html',
-  styleUrl: './trip-listing.css',
+  styleUrls: ['./trip-listing.css'],
   providers: [TripData],
 })
 
 export class TripListing implements OnInit {
   
-  trips: Trip[] = [];
+  trips!: Trip[];
   message: string = '';
 
   constructor(
-    private tripData: TripData,
+    private tripDataService: TripData,
     private router: Router,
     private authenticationService: Authentication
   ) {
@@ -34,22 +34,22 @@ export class TripListing implements OnInit {
   }
 
   private getStuff(): void {
-    this.tripData.getTrips()
+    this.tripDataService.getTrips()
       .subscribe({
-        next: (value: Trip[]) => {
+        next: (value: any) => {
           this.trips = value;
-          if (value.length > 0) {
+          if(value.length > 0) {
             this.message = 'There are ' + value.length + ' trips available.';
           }
           else {
-            this.message = 'There were no trips retireved from the database.';
+            this.message = 'There were no trips retrieved from database';
           }
           console.log(this.message);
         },
         error: (error: any) => {
           console.log('Error: ' + error);
-        }
-      })
+        },
+      });
   }
 
   ngOnInit(): void {
